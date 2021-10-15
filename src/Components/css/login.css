@@ -1,0 +1,66 @@
+@font-face {
+  font-family: 'AvenirHeavy';
+  src: url('../../assets/Avenir-Heavy.ttf');
+}
+
+@font-face {
+  font-family: 'AvenirMedium';
+  src: url('../../assets/Avenir-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'AvenirHeavy';
+  src: url('../../assets/Avenir-Heavy.ttf');
+}
+
+body {
+  background-color: black;
+}
+
+.form-adjustment {
+  max-width: 380px;
+}
+
+.login {
+  color: white;
+  font-size: 27px;
+  font-family: 'AvenirHeavy';
+}
+
+.forgot-password {
+  color: rgba(241, 179, 0, 0.69);
+  font-family: 'AvenirHeavy';
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  color: #f1b300;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-btn {
+  background-color: #f1b300;
+  font-family: 'AvenirHeavy';
+  border: #f1b300;
+  color: black;
+}
+
+.login-btn:hover {
+  background-color: #f1b300;
+  border: #f1b300;
+  color: black;
+}
+
+.form-control {
+  background-color: rgb(53, 53, 53);
+  border: rgb(53, 53, 53);
+  color: white;
+}
+
+.form-adjustment .form-control:focus {
+  background-color: rgb(53, 53, 53);
+  border: rgb(53, 53, 53);
+  box-shadow: none;
+  color: white;
+}
