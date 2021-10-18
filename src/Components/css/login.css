@@ -52,6 +52,15 @@ body {
   color: black;
 }
 
+/* form button .login-btn:active {
+  background-color: #f1b300;
+} */
+
+.login-btn:focus {
+  background-color: #f1b300;
+  border-color: #f1b300;
+}
+
 .form-control {
   background-color: rgb(53, 53, 53);
   border: rgb(53, 53, 53);

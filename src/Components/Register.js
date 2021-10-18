@@ -1,25 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { IoArrowBackCircleOutline } from 'react-icons/io5';
+import { AiFillCreditCard } from 'react-icons/ai';
 
 const Register = () => {
-  // const [registerMain, setRegisterMain] = useState(1);
   const [register1, setRegister] = useState(1);
 
+  useEffect(() => {
+    const stepChanged1 = localStorage.getItem('step1');
+    const stepChanged2 = localStorage.getItem('step2');
+    const stepChanged3 = localStorage.getItem('step3');
+    const stepChanged4 = localStorage.getItem('step4');
+
+    if (stepChanged1 === '1') {
+      setRegister(2);
+    }
+    if (stepChanged2 === '1') {
+      setRegister(3);
+    }
+    if (stepChanged3 === '1') {
+      setRegister(4);
+    }
+    if (stepChanged4 === '1') {
+      setRegister(5);
+    }
+  }, []);
+
   const pageChange = () => {
+    localStorage.setItem('step1', '1');
     setRegister(2);
   };
 
   const pageChange2 = () => {
+    localStorage.setItem('step2', '1');
+    localStorage.removeItem('step1');
     setRegister(3);
   };
 
   const pageChange3 = () => {
+    localStorage.setItem('step3', '1');
+    localStorage.removeItem('step2');
     setRegister(4);
   };
 
   const pageChange4 = () => {
+    localStorage.setItem('step4', '1');
+    localStorage.removeItem('step3');
     setRegister(5);
+  };
+
+  const changeHandlerBack = () => {
+    localStorage.removeItem('step1');
+    setRegister(1);
+  };
+
+  const changeHandlerBack1 = () => {
+    localStorage.removeItem('step2');
+    setRegister(2);
+    localStorage.setItem('step1', '1');
+  };
+
+  const changeHandlerBack2 = () => {
+    localStorage.removeItem('step3');
+    setRegister(3);
+    localStorage.setItem('step2', '1');
+  };
+
+  const changeHandlerBack3 = () => {
+    localStorage.removeItem('step4');
+    setRegister(4);
+    localStorage.setItem('step3', '1');
   };
 
   return (
@@ -33,8 +84,6 @@ const Register = () => {
           />
         </div>
 
-        {/* {registerMain === 1 ? (<Register />) : registerMain === 2 ? <Register2 /> : registerMain === 3 ? <Register3 /> : registerMain === 4 ? <Register4 />} */}
-
         {register1 === 1 ? (
           <div>
             <Row className='d-flex justify-content-center'>
@@ -44,11 +93,11 @@ const Register = () => {
 
                 <Form>
                   <Form.Group className='mb-4' controlId='formFirstName'>
-                    <Form.Control type='email' placeholder='First Name' />
+                    <Form.Control type='text' placeholder='First Name' />
                   </Form.Group>
 
                   <Form.Group className='mb-4' controlId='formLastName'>
-                    <Form.Control type='password' placeholder='Last Name' />
+                    <Form.Control type='text' placeholder='Last Name' />
                   </Form.Group>
 
                   <Button
@@ -67,6 +116,12 @@ const Register = () => {
           <div>
             <Row className='d-flex justify-content-center'>
               <Col className='form-adjustment'>
+                <div className='mb-4'>
+                  <IoArrowBackCircleOutline
+                    style={{ color: 'white', fontSize: '25px' }}
+                    onClick={changeHandlerBack}
+                  />
+                </div>
                 <p className='steps'>STEP 2 OF 4</p>
                 <h1 className='my-4 login'>Enter your email</h1>
 
@@ -77,7 +132,7 @@ const Register = () => {
 
                   <Form.Group className='mb-3' controlId='formBasicCheckbox'>
                     <Form.Check
-                      type='small-text'
+                      type='checkbox'
                       label='Yes, I would like to recieve updates, special offers and other updates from SWISS.'
                       className='checkbox'
                     />
@@ -99,6 +154,12 @@ const Register = () => {
           <div>
             <Row className='d-flex justify-content-center'>
               <Col className='form-adjustment'>
+                <div className='mb-4'>
+                  <IoArrowBackCircleOutline
+                    style={{ color: 'white', fontSize: '25px' }}
+                    onClick={changeHandlerBack1}
+                  />
+                </div>
                 <h1 className='my-4 login'>Check your email inbox</h1>
                 <p className='small-text'>
                   We need to verify your email address. We’ve sent you an email
@@ -140,6 +201,12 @@ const Register = () => {
           <div>
             <Row className='d-flex justify-content-center'>
               <Col className='form-adjustment'>
+                <div className='mb-4'>
+                  <IoArrowBackCircleOutline
+                    style={{ color: 'white', fontSize: '25px' }}
+                    onClick={changeHandlerBack2}
+                  />
+                </div>
                 <p className='steps'>STEP 3 OF 4</p>
                 <h1 className='my-4 login'>Create a password</h1>
 
@@ -169,6 +236,12 @@ const Register = () => {
           <div>
             <Row className='d-flex justify-content-center'>
               <Col className='form-adjustment'>
+                <div className='mb-4'>
+                  <IoArrowBackCircleOutline
+                    style={{ color: 'white', fontSize: '25px' }}
+                    onClick={changeHandlerBack3}
+                  />
+                </div>
                 <p className='steps'>STEP 4 OF 4</p>
                 <h1 className='my-4 login'>Start Learning Today</h1>
 
@@ -183,6 +256,12 @@ const Register = () => {
                       <div className='subscription'>
                         <div>
                           <p1>Monthly</p1>
+                          <input
+                            className='form-check-input'
+                            type='radio'
+                            name='flexRadioDefault'
+                            id='flexRadioDefault1'
+                          />
                         </div>
                         <div>
                           <p1>USD 9.99</p1>
@@ -193,6 +272,12 @@ const Register = () => {
                       <div className='subscription'>
                         <div>
                           <p1>Yearly</p1>
+                          <input
+                            className='form-check-input'
+                            type='radio'
+                            name='flexRadioDefault'
+                            id='flexRadioDefault1'
+                          />
                         </div>
                         <div>
                           <p1>USD 99.00</p1>
@@ -213,7 +298,7 @@ const Register = () => {
                     </Form.Label>
                     <Form.Control
                       type='text'
-                      placeholder='1234 1234 1234 1234'
+                      placeholder=' 1234 1234 1234 1234'
                     />
                   </Form.Group>
 
