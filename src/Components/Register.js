@@ -6,6 +6,17 @@ import { AiFillCreditCard } from 'react-icons/ai';
 
 const Register = () => {
   const [register1, setRegister] = useState(1);
+  const [registerData, setRegisterData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    code: '',
+    password: '',
+  });
+
+  const changeHandlerField = (e) => {
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     const stepChanged1 = localStorage.getItem('step1');
@@ -75,29 +86,46 @@ const Register = () => {
 
   return (
     <>
-      <Container>
-        <div className='d-flex justify-content-center my-5'>
-          <img
-            src='images/swiss_logo.png'
-            alt='Logo'
-            style={{ width: '96px', height: '74px' }}
-          />
+      <Container fluid>
+        <div>
+          <a href='/' className='top-btn'>
+            Login
+          </a>
         </div>
+        <div className='d-flex justify-content-center mt-5'>
+          <img src='images/swiss_logo.png' alt='Logo' className='main-logo' />
+        </div>
+
+        {/* STEP 1 */}
 
         {register1 === 1 ? (
           <div>
             <Row className='d-flex justify-content-center'>
               <Col className='form-adjustment'>
-                <p className='steps'>STEP 1 OF 4</p>
-                <h1 className='my-4 login'>Enter your name</h1>
+                <p className=' mt-5 steps'>STEP 1 OF 4</p>
+                <h1 className='mb-4 login'>Enter your name</h1>
 
                 <Form>
                   <Form.Group className='mb-4' controlId='formFirstName'>
-                    <Form.Control type='text' placeholder='First Name' />
+                    <Form.Control
+                      type='text'
+                      placeholder='First Name'
+                      autoComplete='off'
+                      value={registerData.firstName}
+                      name='firstName'
+                      onChange={(e) => changeHandlerField(e)}
+                    />
                   </Form.Group>
 
-                  <Form.Group className='mb-4' controlId='formLastName'>
-                    <Form.Control type='text' placeholder='Last Name' />
+                  <Form.Group className='mb-5' controlId='formLastName'>
+                    <Form.Control
+                      type='text'
+                      placeholder='Last Name'
+                      autoComplete='off'
+                      value={registerData.lastName}
+                      name='lastName'
+                      onChange={(e) => changeHandlerField(e)}
+                    />
                   </Form.Group>
 
                   <Button
@@ -105,6 +133,12 @@ const Register = () => {
                     type='button'
                     className='login-btn d-block w-100'
                     onClick={pageChange}
+                    disabled={
+                      registerData.firstName !== '' &&
+                      registerData.lastName !== ''
+                        ? false
+                        : true
+                    }
                   >
                     NEXT
                   </Button>
@@ -112,25 +146,37 @@ const Register = () => {
               </Col>
             </Row>
           </div>
-        ) : register1 === 2 ? (
+        ) : // STEP 2
+        register1 === 2 ? (
           <div>
             <Row className='d-flex justify-content-center'>
               <Col className='form-adjustment'>
-                <div className='mb-4'>
+                <div className='mb-5'>
                   <IoArrowBackCircleOutline
                     style={{ color: 'white', fontSize: '25px' }}
                     onClick={changeHandlerBack}
                   />
                 </div>
                 <p className='steps'>STEP 2 OF 4</p>
-                <h1 className='my-4 login'>Enter your email</h1>
+                <h1 className='mb-4 login'>Enter your email</h1>
 
                 <Form>
                   <Form.Group className='mb-4' controlId='formBasicEmail'>
-                    <Form.Control type='email' placeholder='Email Address' />
+                    <Form.Control
+                      type='email'
+                      placeholder='Email Address'
+                      required
+                      name='email'
+                      value={registerData.email}
+                      autoComplete='off'
+                      onChange={(e) => changeHandlerField(e)}
+                    />
                   </Form.Group>
 
-                  <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+                  <Form.Group
+                    className='mt-2 mb-4'
+                    controlId='formBasicCheckbox'
+                  >
                     <Form.Check
                       type='checkbox'
                       label='Yes, I would like to recieve updates, special offers and other updates from SWISS.'
@@ -140,9 +186,10 @@ const Register = () => {
 
                   <Button
                     variant='primary'
-                    type='button'
+                    type='submit'
                     className='login-btn d-block w-100'
                     onClick={pageChange2}
+                    disabled={registerData.email !== '' ? false : true}
                   >
                     NEXT
                   </Button>
@@ -150,7 +197,8 @@ const Register = () => {
               </Col>
             </Row>
           </div>
-        ) : register1 === 3 ? (
+        ) : // RECIEVE CODE STEP
+        register1 === 3 ? (
           <div>
             <Row className='d-flex justify-content-center'>
               <Col className='form-adjustment'>
@@ -170,9 +218,11 @@ const Register = () => {
                 <Form>
                   <Form.Control
                     size='lg'
-                    type='text'
+                    type='number'
+                    name='code'
                     placeholder='000000'
                     className='mb-4 resend-code'
+                    onChange={(e) => changeHandlerField(e)}
                   />
 
                   <Button
@@ -180,6 +230,7 @@ const Register = () => {
                     type='button'
                     className='login-btn d-block w-100'
                     onClick={pageChange3}
+                    disabled={registerData.code !== '' ? false : true}
                   >
                     CONTINUE
                   </Button>
@@ -197,22 +248,28 @@ const Register = () => {
               </Col>
             </Row>
           </div>
-        ) : register1 === 4 ? (
+        ) : // STEP 3
+        register1 === 4 ? (
           <div>
             <Row className='d-flex justify-content-center'>
               <Col className='form-adjustment'>
-                <div className='mb-4'>
+                <div className='mb-5'>
                   <IoArrowBackCircleOutline
                     style={{ color: 'white', fontSize: '25px' }}
                     onClick={changeHandlerBack2}
                   />
                 </div>
                 <p className='steps'>STEP 3 OF 4</p>
-                <h1 className='my-4 login'>Create a password</h1>
+                <h1 className='mb-3 login'>Create a password</h1>
 
                 <Form>
                   <Form.Group className='mb-4' controlId='formBasicPassword'>
-                    <Form.Control type='password' placeholder='Password' />
+                    <Form.Control
+                      type='password'
+                      placeholder='Password'
+                      name='password'
+                      onChange={(e) => changeHandlerField(e)}
+                    />
                   </Form.Group>
 
                   <p className='small-text'>
@@ -222,9 +279,10 @@ const Register = () => {
 
                   <Button
                     variant='primary'
-                    type='button'
+                    type='submit'
                     className='login-btn d-block w-100 mt-5'
                     onClick={pageChange4}
+                    disabled={registerData.password !== '' ? false : true}
                   >
                     NEXT
                   </Button>
@@ -232,7 +290,8 @@ const Register = () => {
               </Col>
             </Row>
           </div>
-        ) : register1 === 5 ? (
+        ) : // STEP 4
+        register1 === 5 ? (
           <div>
             <Row className='d-flex justify-content-center'>
               <Col className='form-adjustment'>
@@ -307,13 +366,13 @@ const Register = () => {
                       <Form.Label className='last-form-text'>
                         EXPIRATION DATE
                       </Form.Label>
-                      <Form.Control placeholder='First name' />
+                      <Form.Control placeholder='' />
                     </Col>
                     <Col>
                       <Form.Label className='last-form-text'>
                         SECURITY CODE
                       </Form.Label>
-                      <Form.Control placeholder='Last name' />
+                      <Form.Control placeholder='' />
                     </Col>
                   </Row>
 
