@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form,
+  InputGroup,
+  FormControl,
+} from 'react-bootstrap';
 import { IoArrowBackCircleOutline } from 'react-icons/io5';
-import { AiFillCreditCard } from 'react-icons/ai';
+import { AiFillEyeInvisible } from 'react-icons/ai';
+import { AiFillEye } from 'react-icons/ai';
 
 const Register = () => {
   const [register1, setRegister] = useState(1);
@@ -14,8 +23,26 @@ const Register = () => {
     password: '',
   });
 
+  const [toggle, setToggle] = useState(true);
+
   const changeHandlerField = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+  };
+
+  const showPassword = () => {
+    setToggle(false);
+    const shownPass = document.getElementById('inlineFormInputGroup');
+    if (shownPass.type === 'password') {
+      shownPass.type = 'text';
+    }
+  };
+
+  const hidePassword = () => {
+    setToggle(true);
+    const hiddenPass = document.getElementById('inlineFormInputGroup');
+    if (hiddenPass.type === 'text') {
+      hiddenPass.type = 'password';
+    }
   };
 
   useEffect(() => {
@@ -241,7 +268,7 @@ const Register = () => {
 
                   <Form.Group className='mb-4' controlId='formForgotPassword'>
                     <a href='#' className='email-resend'>
-                      Forgot Password
+                      Resend
                     </a>
                   </Form.Group>
                 </Form>
@@ -263,14 +290,38 @@ const Register = () => {
                 <h1 className='mb-3 login'>Create a password</h1>
 
                 <Form>
-                  <Form.Group className='mb-4' controlId='formBasicPassword'>
-                    <Form.Control
-                      type='password'
+                  <InputGroup className='mb-2'>
+                    <FormControl
+                      id='inlineFormInputGroup'
                       placeholder='Password'
+                      type='password'
                       name='password'
                       onChange={(e) => changeHandlerField(e)}
+                      value={registerData.password}
                     />
-                  </Form.Group>
+                    <InputGroup.Text
+                      style={{
+                        backgroundColor: 'rgb(53, 53, 53)',
+                        border: 'rgb(53, 53, 53)',
+                      }}
+                    >
+                      {/* <AiFillEye style={{ color: 'white' }} /> */}
+
+                      {toggle ? (
+                        <AiFillEyeInvisible
+                          style={{ color: 'white' }}
+                          onClick={showPassword}
+                        />
+                      ) : (
+                        <AiFillEye
+                          style={{ color: 'white' }}
+                          onClick={hidePassword}
+                        />
+                      )}
+
+                      {/* <AiFillEye style={{ color: 'white' }} /> */}
+                    </InputGroup.Text>
+                  </InputGroup>
 
                   <p className='small-text'>
                     Use a minimum of 6 characters (case sensitive) with atleast
@@ -284,7 +335,7 @@ const Register = () => {
                     onClick={pageChange4}
                     disabled={registerData.password !== '' ? false : true}
                   >
-                    NEXT
+                    CONTINUE
                   </Button>
                 </Form>
               </Col>
@@ -304,13 +355,13 @@ const Register = () => {
                 <p className='steps'>STEP 4 OF 4</p>
                 <h1 className='my-4 login'>Start Learning Today</h1>
 
-                <p className='small-text'>
+                <p className='mb-4 small-text'>
                   The details below will be used as billing information for your
                   SWISS subscription.
                 </p>
 
                 <Form>
-                  <Row>
+                  <Row className='mb-3'>
                     <Col>
                       <div className='subscription'>
                         <div>
@@ -366,13 +417,13 @@ const Register = () => {
                       <Form.Label className='last-form-text'>
                         EXPIRATION DATE
                       </Form.Label>
-                      <Form.Control placeholder='' />
+                      <Form.Control placeholder='MM/YY' />
                     </Col>
                     <Col>
                       <Form.Label className='last-form-text'>
                         SECURITY CODE
                       </Form.Label>
-                      <Form.Control placeholder='' />
+                      <Form.Control placeholder='CVC' />
                     </Col>
                   </Row>
 

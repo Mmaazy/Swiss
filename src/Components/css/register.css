@@ -34,6 +34,22 @@
 .small-text {
   color: white;
   font-size: 12px;
+  font-family: 'AvenirMedium';
+}
+
+.password-toggle {
+  background-color: rgb(53, 53, 53);
+  border: rgb(53, 53, 53);
+}
+
+.password-toggle:hover {
+  background-color: rgb(53, 53, 53);
+  border: rgb(53, 53, 53);
+}
+
+.password-toggle:focus {
+  background-color: rgb(53, 53, 53);
+  border: rgb(53, 53, 53);
 }
 
 .small-text-resend {
